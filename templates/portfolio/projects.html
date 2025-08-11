@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+
+{% block title %}Talha Colfaoğlu - Projeler{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="min-height: 60vh;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-center">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold mb-4" data-aos="fade-up">
+                        Projelerim
+                    </h1>
+                    <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100" style="color: var(--light-text);">
+                        Geliştirdiğim yazılım projeleri
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="section">
+    <div class="container">
+        {% if projects %}
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1|add:forloop.counter0 }}">
+                <div class="card project-card h-100">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--light-bg);">
+                        <i class="fas fa-code" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title">{{ project.title }}</h5>
+                            {% if project.featured %}
+                            <span class="apple-badge success">
+                                <i class="fas fa-star me-1"></i>Öne Çıkan
+                            </span>
+                            {% endif %}
+                        </div>
+                        <p class="card-text flex-grow-1">{{ project.description }}</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Teknolojiler:</strong> {{ project.technologies }}
+                            </small>
+                        </div>
+                        <div class="d-flex gap-2 mt-auto">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="btn btn-primary btn-sm" target="_blank">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                            {% endif %}
+                            {% if project.live_url %}
+                            <a href="{{ project.live_url }}" class="btn btn-secondary btn-sm" target="_blank">
+                                <i class="fas fa-external-link-alt me-1"></i>Canlı Demo
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>{{ project.created_at|date:"F Y" }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                <div class="card project-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--light-bg);">
+                        <i class="fas fa-code" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title">Kişisel Website</h5>
+                            <span class="apple-badge success">
+                                <i class="fas fa-star me-1"></i>Öne Çıkan
+                            </span>
+                        </div>
+                        <p class="card-text flex-grow-1">Django ile geliştirilmiş modern kişisel website projesi. Responsive tasarım ve modern UI/UX prensipleri kullanılarak oluşturuldu.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Teknolojiler:</strong> Django, Python, HTML, CSS, JavaScript, Bootstrap
+                            </small>
+                        </div>
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                            <a href="#" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-external-link-alt me-1"></i>Canlı Demo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Aralık 2024</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card project-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--light-bg);">
+                        <i class="fas fa-mobile-alt" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Mobil Uygulama</h5>
+                        <p class="card-text flex-grow-1">React Native ile geliştirilmiş mobil uygulama projesi. Kullanıcı dostu arayüz ve performanslı çalışma.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Teknolojiler:</strong> React Native, JavaScript, Node.js, Firebase
+                            </small>
+                        </div>
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Kasım 2024</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card project-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--light-bg);">
+                        <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Veri Analizi Projesi</h5>
+                        <p class="card-text flex-grow-1">Python kullanarak geliştirilmiş veri analizi ve görselleştirme projesi. Pandas, NumPy ve Matplotlib kütüphaneleri kullanıldı.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Teknolojiler:</strong> Python, Pandas, NumPy, Matplotlib, Jupyter
+                            </small>
+                        </div>
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Ekim 2024</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card project-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--light-bg);">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">E-ticaret Sitesi</h5>
+                        <p class="card-text flex-grow-1">Django ve React kullanarak geliştirilmiş e-ticaret platformu. Kullanıcı yönetimi, ürün kataloğu ve ödeme sistemi içerir.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Teknolojiler:</strong> Django, React, PostgreSQL, Stripe API
+                            </small>
+                        </div>
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Eylül 2024</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="card project-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--light-bg);">
+                        <i class="fas fa-robot" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Chatbot Projesi</h5>
+                        <p class="card-text flex-grow-1">Python ve NLP kütüphaneleri kullanarak geliştirilmiş akıllı chatbot. Doğal dil işleme ve makine öğrenmesi teknikleri uygulandı.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Teknolojiler:</strong> Python, NLTK, TensorFlow, Flask
+                            </small>
+                        </div>
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Ağustos 2024</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="card project-card h-100">
+                    <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: var(--light-bg);">
+                        <i class="fas fa-gamepad" style="font-size: 3rem; color: var(--primary-color);"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Oyun Projesi</h5>
+                        <p class="card-text flex-grow-1">Python ve Pygame kullanarak geliştirilmiş 2D oyun projesi. Oyun geliştirme prensipleri ve algoritma optimizasyonu uygulandı.</p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <strong>Teknolojiler:</strong> Python, Pygame, Object-Oriented Programming
+                            </small>
+                        </div>
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>Temmuz 2024</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="section bg-light" style="background: var(--light-bg) !important;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="mb-4" data-aos="fade-up">Yeni Projeler Geliştirmek İster misiniz?</h3>
+                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Birlikte çalışarak harika projeler geliştirebiliriz. İletişime geçmek için aşağıdaki butona tıklayın.
+                </p>
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-primary" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-envelope me-2"></i>İletişime Geç
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

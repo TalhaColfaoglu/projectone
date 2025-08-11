@@ -1,0 +1,674 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Talha Colfaoğlu - Kişisel Website{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Boğaziçi University Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Boğaziçi University Color Palette */
+            --bouni-blue: #1e3a8a;
+            --bouni-dark-blue: #1e40af;
+            --bouni-light-blue: #3b82f6;
+            --bouni-accent-blue: #2563eb;
+            --bouni-gold: #d97706;
+            --bouni-cream: #fef3c7;
+            --bouni-white: #ffffff;
+            --bouni-light-gray: #f8fafc;
+            --bouni-gray: #64748b;
+            --bouni-dark-gray: #334155;
+            --bouni-black: #0f172a;
+            
+            /* Academic Colors */
+            --academic-navy: #1e3a8a;
+            --academic-burgundy: #7c2d12;
+            --academic-forest: #166534;
+            --academic-slate: #475569;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--bouni-black);
+            background: var(--bouni-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Boğaziçi University Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(30, 58, 138, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(217, 119, 6, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        /* Profile Image Styles */
+        .profile-image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bouni-blue);
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(30, 58, 138, 0.4);
+        }
+        
+        .profile-placeholder {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--bouni-light-gray) 0%, var(--bouni-white) 100%);
+            border: 4px solid var(--bouni-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.3);
+        }
+        
+        /* Academic Typography */
+        .academic-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--bouni-blue);
+        }
+        
+        .academic-subtitle {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 600;
+            color: var(--bouni-dark-gray);
+        }
+        
+        /* Boğaziçi Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--bouni-blue) 0%, var(--bouni-dark-blue) 100%);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--bouni-gold);
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.15);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            color: var(--bouni-white) !important;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-brand::after {
+            content: '1863';
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--bouni-cream);
+            text-align: center;
+            margin-top: -5px;
+        }
+        
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: var(--bouni-white) !important;
+            position: relative;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.25rem;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--bouni-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::before {
+            width: 80%;
+        }
+        
+        .nav-link:hover {
+            color: var(--bouni-cream) !important;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section - Background Image */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--bouni-light-gray);
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('{% static "images/talha-profile.jpeg" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+        
+        .hero-section .container {
+            position: relative;
+            z-index: 3;
+        }
+        
+        .hero-section .hero-content {
+            color: var(--bouni-white);
+        }
+        
+        .hero-section .hero-content h1,
+        .hero-section .hero-content h2,
+        .hero-section .hero-content p {
+            color: var(--bouni-white);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .hero-section .hero-content h1 span {
+            color: var(--bouni-gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero-section .hero-content .btn {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Hero Section - Boğaziçi Style */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bouni-light-gray) 0%, var(--bouni-white) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(30, 58, 138, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(217, 119, 6, 0.1) 0%, transparent 50%);
+            animation: heroPulse 6s ease-in-out infinite;
+        }
+        
+        @keyframes heroPulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.05); opacity: 0.2; }
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--bouni-blue);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero-content h2 {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--bouni-dark-gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: var(--bouni-gray);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        
+        /* Boğaziçi Buttons */
+        .btn-bouni {
+            background: linear-gradient(135deg, var(--bouni-blue) 0%, var(--bouni-dark-blue) 100%);
+            border: 2px solid var(--bouni-blue);
+            color: var(--bouni-white);
+            padding: 12px 30px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+        }
+        
+        .btn-bouni::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-bouni:hover::before {
+            left: 100%;
+        }
+        
+        .btn-bouni:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.4);
+            color: var(--bouni-white);
+        }
+        
+        .btn-bouni-outline {
+            background: transparent;
+            border: 2px solid var(--bouni-blue);
+            color: var(--bouni-blue);
+            padding: 12px 30px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-bouni-outline:hover {
+            background: var(--bouni-blue);
+            color: var(--bouni-white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+        }
+        
+        /* Academic Cards */
+        .academic-card {
+            background: var(--bouni-white);
+            border: 1px solid rgba(30, 58, 138, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
+        }
+        
+        .academic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--bouni-blue) 0%, var(--bouni-gold) 100%);
+        }
+        
+        .academic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(30, 58, 138, 0.15);
+        }
+        
+        /* Section Titles */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--bouni-blue);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bouni-blue) 0%, var(--bouni-gold) 100%);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            text-align: center;
+            color: var(--bouni-gray);
+            margin-bottom: 3rem;
+        }
+        
+        /* Academic Progress Bars */
+        .academic-progress {
+            height: 12px;
+            background: var(--bouni-light-gray);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(30, 58, 138, 0.1);
+        }
+        
+        .academic-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--bouni-blue) 0%, var(--bouni-light-blue) 100%);
+            border-radius: 6px;
+            position: relative;
+            transition: width 1s ease;
+        }
+        
+        .academic-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Academic Form Elements */
+        .academic-input {
+            background: var(--bouni-white);
+            border: 2px solid rgba(30, 58, 138, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--bouni-black);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .academic-input:focus {
+            outline: none;
+            border-color: var(--bouni-blue);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Academic Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--bouni-blue) 0%, var(--bouni-dark-blue) 100%);
+            color: var(--bouni-white);
+            padding: 3rem 0 2rem;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--bouni-gold) 0%, var(--bouni-cream) 50%, var(--bouni-gold) 100%);
+        }
+        
+        .footer h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--bouni-cream);
+            margin-bottom: 1rem;
+        }
+        
+        .footer p {
+            font-family: 'Inter', sans-serif;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--bouni-white);
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--bouni-gold);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bouni-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: loadingFade 2s ease-in-out forwards;
+        }
+        
+        .loading-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--bouni-white);
+            animation: loadingPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes loadingFade {
+            0% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-text">Talha Colfaoğlu</div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'portfolio:home' %}">
+                TALHA COLFAOĞLU
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:home' %}">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:about' %}">Hakkımda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:projects' %}">Projeler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio:contact' %}">İletişim</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Talha Colfaoğlu</h5>
+                    <p>Boğaziçi Üniversitesi Bilgisayar Mühendisliği Öğrencisi</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255, 255, 255, 0.2);">
+            <div class="text-center">
+                <p style="margin-bottom: 0; font-size: 0.9rem;">&copy; 2024 Talha Colfaoğlu. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-out-cubic'
+        });
+        
+        // Remove loading screen after 2 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.querySelector('.loading-screen').style.display = 'none';
+            }, 2000);
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(30, 58, 138, 0.95)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            } else {
+                navbar.style.background = 'linear-gradient(135deg, var(--bouni-blue) 0%, var(--bouni-dark-blue) 100%)';
+            }
+        });
+    </script>
+</body>
+</html>

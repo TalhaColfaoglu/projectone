@@ -1,0 +1,338 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Talha Colfaoğlu - Hakkımda{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="min-height: 60vh;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-center">
+                <h1 class="academic-title" data-aos="fade-up">
+                    Hakkımda
+                </h1>
+                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">
+                    Bilgisayar mühendisliği alanında kendimi geliştirmeye odaklanıyorum
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section - Boğaziçi Style -->
+<section class="section" id="about" style="background: var(--bouni-light-gray); padding: 120px 0;">
+    <div class="container">
+        {% if about %}
+        <div class="row align-items-center">
+            <!-- Sol taraf - Metin içeriği -->
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="academic-card">
+                    <h3 class="academic-title mb-4">{{ about.name }}</h3>
+                    <h4 class="academic-subtitle mb-3">{{ about.title }}</h4>
+                    <p class="lead mb-4">{{ about.description }}</p>
+                    
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-graduation-cap me-3" style="color: var(--bouni-blue); font-size: 1.5rem;"></i>
+                                <div>
+                                    <h6 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Eğitim</h6>
+                                    <small style="color: var(--bouni-gray);">Boğaziçi Üniversitesi</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt me-3" style="color: var(--bouni-gold); font-size: 1.5rem;"></i>
+                                <div>
+                                    <h6 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Konum</h6>
+                                    <small style="color: var(--bouni-gray);">{{ about.location|default:"İstanbul, Türkiye" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sağ taraf - Resim -->
+            <div class="col-lg-6" data-aos="fade-left">
+                {% if about.image %}
+                <img src="{{ about.image.url }}" alt="{{ about.name }}" class="img-fluid rounded-3 shadow" style="border: 3px solid var(--bouni-blue);">
+                {% else %}
+                <div class="text-center">
+                    <div class="profile-image-container">
+                        <img src="{% static 'images/talha-profile.jpeg' %}" alt="Talha Colfaoğlu" class="profile-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="profile-placeholder" style="display: none;">
+                            <i class="fas fa-user" style="font-size: 6rem; color: var(--bouni-blue);"></i>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Education Section -->
+<section class="section bg-light" style="background: var(--light-bg) !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title" data-aos="fade-up">Eğitim</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Akademik geçmişim
+                </p>
+            </div>
+        </div>
+        
+        {% if education %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="timeline">
+                    {% for edu in education %}
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1|add:forloop.counter0 }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="card-title mb-1">{{ edu.degree }}</h5>
+                                        <h6 class="text-primary" style="color: var(--primary-color) !important;">{{ edu.institution }}</h6>
+                                        <p class="text-muted mb-0">{{ edu.field_of_study }}</p>
+                                    </div>
+                                    <span class="apple-badge">
+                                        {% if edu.current %}
+                                            {{ edu.start_date|date:"Y" }} - Devam Ediyor
+                                        {% else %}
+                                            {{ edu.start_date|date:"Y" }} - {{ edu.end_date|date:"Y" }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                {% if edu.description %}
+                                <p class="card-text">{{ edu.description }}</p>
+                                {% endif %}
+                                {% if edu.gpa %}
+                                <small class="text-muted">GPA: {{ edu.gpa }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="timeline">
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="card-title mb-1">Bilgisayar Mühendisliği</h5>
+                                        <h6 class="text-primary" style="color: var(--primary-color) !important;">Boğaziçi Üniversitesi</h6>
+                                        <p class="text-muted mb-0">Bilgisayar Mühendisliği</p>
+                                    </div>
+                                    <span class="apple-badge">2022 - Devam Ediyor</span>
+                                </div>
+                                <p class="card-text">Boğaziçi Üniversitesi'nde bilgisayar mühendisliği eğitimime devam ediyorum.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="card-title mb-1">Lise Diploması</h5>
+                                        <h6 class="text-primary" style="color: var(--primary-color) !important;">Bursa Nilüfer Borsa İstanbul Fen Lisesi</h6>
+                                        <p class="text-muted mb-0">Fen Bilimleri</p>
+                                    </div>
+                                    <span class="apple-badge">2018 - 2022</span>
+                                </div>
+                                <p class="card-text">Bursa Nilüfer Borsa İstanbul Fen Lisesi'nden mezun oldum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title" data-aos="fade-up">Deneyim</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    İş ve staj deneyimlerim
+                </p>
+            </div>
+        </div>
+        
+        {% if experience %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="timeline">
+                    {% for exp in experience %}
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1|add:forloop.counter0 }}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="card-title mb-1">{{ exp.position }}</h5>
+                                        <h6 class="text-primary" style="color: var(--primary-color) !important;">{{ exp.company }}</h6>
+                                    </div>
+                                    <span class="apple-badge">
+                                        {% if exp.current %}
+                                            {{ exp.start_date|date:"M Y" }} - Devam Ediyor
+                                        {% else %}
+                                            {{ exp.start_date|date:"M Y" }} - {{ exp.end_date|date:"M Y" }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <p class="card-text">{{ exp.description }}</p>
+                                {% if exp.technologies %}
+                                <div class="mt-3">
+                                    <small class="text-muted">
+                                        <strong>Teknolojiler:</strong> {{ exp.technologies }}
+                                    </small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fas fa-briefcase text-muted" style="font-size: 3rem; color: var(--light-text);"></i>
+                            <h5 class="mt-3">Henüz iş deneyimi bulunmuyor</h5>
+                            <p class="text-muted">Staj ve iş deneyimlerim burada görüntülenecek.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="section bg-light" style="background: var(--light-bg) !important;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title" data-aos="fade-up">Yeteneklerim</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Teknik ve kişisel yeteneklerim
+                </p>
+            </div>
+        </div>
+        
+        {% if skills %}
+        <div class="row">
+            {% for skill in skills %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1|add:forloop.counter0 }}">
+                <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">{{ skill.name }}</h5>
+                        <span class="apple-badge">{{ skill.proficiency }}/10</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{ skill.proficiency }}0%"></div>
+                    </div>
+                    <small class="text-muted">{{ skill.get_category_display }}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">Python</h5>
+                        <span class="apple-badge">8/10</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 80%"></div>
+                    </div>
+                    <small class="text-muted">Programming Languages</small>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">Django</h5>
+                        <span class="apple-badge">7/10</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                    <small class="text-muted">Frameworks & Libraries</small>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">JavaScript</h5>
+                        <span class="apple-badge">6/10</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                    <small class="text-muted">Programming Languages</small>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">HTML/CSS</h5>
+                        <span class="apple-badge">7/10</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 70%"></div>
+                    </div>
+                    <small class="text-muted">Programming Languages</small>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">Git</h5>
+                        <span class="apple-badge">6/10</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 60%"></div>
+                    </div>
+                    <small class="text-muted">Tools & Technologies</small>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="skill-item">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">Problem Çözme</h5>
+                        <span class="apple-badge">8/10</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 80%"></div>
+                    </div>
+                    <small class="text-muted">Soft Skills</small>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,523 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Talha Colfaoğlu - Ana Sayfa{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Minimalist Design -->
+<section class="hero-section" style="min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--bouni-white) 0%, var(--bouni-light-gray) 100%); position: relative;">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <!-- Profil Fotoğrafı -->
+            <div class="col-lg-4 col-md-6 text-center mb-5 mb-lg-0" data-aos="fade-right">
+                <div class="profile-image-wrapper">
+                    <img src="{% static 'images/talha-profile.jpeg' %}" 
+                         alt="Talha Colfaoğlu" 
+                         class="profile-hero-image"
+                         style="width: 280px; height: 280px; border-radius: 50%; object-fit: cover; border: 4px solid var(--bouni-blue); box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                </div>
+            </div>
+            
+            <!-- İçerik -->
+            <div class="col-lg-6 col-md-6" data-aos="fade-left">
+                <div class="hero-content-simple">
+                    <h1 class="hero-name" style="font-size: 3.5rem; font-weight: 300; color: var(--bouni-blue); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">
+                        Talha Colfaoğlu
+                    </h1>
+                    <h2 class="hero-title" style="font-size: 1.5rem; font-weight: 400; color: var(--bouni-gray); margin-bottom: 2rem; letter-spacing: 1px;">
+                        Bilgisayar Mühendisliği Öğrencisi
+                    </h2>
+                    <p class="hero-description" style="font-size: 1.1rem; line-height: 1.8; color: var(--bouni-gray); margin-bottom: 2.5rem; max-width: 500px;">
+                        Boğaziçi Üniversitesi'nde eğitim alıyorum. Yazılım geliştirme ve teknoloji alanlarında kendimi geliştiriyorum.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{% url 'portfolio:about' %}" class="btn btn-bouni me-3" style="padding: 12px 30px; font-weight: 500;">
+                            Hakkımda
+                        </a>
+                        <a href="{% url 'portfolio:projects' %}" class="btn btn-bouni-outline" style="padding: 12px 30px; font-weight: 500;">
+                            Projelerim
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="text-center" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);" data-aos="fade-up" data-aos-delay="500">
+            <a href="#about" style="color: var(--bouni-blue); text-decoration: none; animation: bounce 2s infinite;">
+                <i class="fas fa-chevron-down" style="font-size: 1.5rem;"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-10px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-5px) translateX(-50%);
+    }
+}
+
+.profile-hero-image:hover {
+    transform: scale(1.05);
+}
+
+.academic-progress-bar {
+    width: 0%;
+    transition: width 1s ease-in-out;
+}
+
+@media (max-width: 991px) {
+    .hero-name {
+        font-size: 2.5rem !important;
+    }
+    .hero-title {
+        font-size: 1.3rem !important;
+    }
+    .profile-hero-image {
+        width: 220px !important;
+        height: 220px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 80vh !important;
+        padding: 50px 0;
+    }
+    .hero-name {
+        font-size: 2rem !important;
+    }
+    .hero-title {
+        font-size: 1.1rem !important;
+    }
+    .profile-hero-image {
+        width: 180px !important;
+        height: 180px !important;
+    }
+    .hero-buttons .btn {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+}
+</style>
+
+<script>
+// Progress bar animation
+document.addEventListener('DOMContentLoaded', function() {
+    const progressBars = document.querySelectorAll('.academic-progress-bar');
+    
+    progressBars.forEach(function(bar) {
+        const width = bar.getAttribute('data-width');
+        if (width) {
+            // Animate progress bar width
+            setTimeout(function() {
+                bar.style.width = width + '%';
+            }, 500);
+        }
+    });
+});
+</script>
+
+<!-- About Section - Boğaziçi Style -->
+<section class="section" id="about" style="background: var(--bouni-light-gray); padding: 120px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title" data-aos="fade-up">Hakkımda</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Bilgisayar mühendisliği alanında kendimi geliştirmeye odaklanıyorum
+                </p>
+            </div>
+        </div>
+        
+        {% if about %}
+        <div class="row align-items-center">
+            <!-- Sol taraf - Metin içeriği -->
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="academic-card">
+                    <h3 class="academic-title mb-4">{{ about.name }}</h3>
+                    <h4 class="academic-subtitle mb-3">{{ about.title }}</h4>
+                    <p class="lead mb-4">{{ about.description }}</p>
+                    
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-graduation-cap me-3" style="color: var(--bouni-blue); font-size: 1.5rem;"></i>
+                                <div>
+                                    <h6 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Eğitim</h6>
+                                    <small style="color: var(--bouni-gray);">Boğaziçi Üniversitesi</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt me-3" style="color: var(--bouni-gold); font-size: 1.5rem;"></i>
+                                <div>
+                                    <h6 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Konum</h6>
+                                    <small style="color: var(--bouni-gray);">{{ about.location|default:"İstanbul, Türkiye" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sağ taraf - Resim -->
+            <div class="col-lg-6" data-aos="fade-left">
+                {% if about.image %}
+                <img src="{{ about.image.url }}" alt="{{ about.name }}" class="img-fluid rounded-3 shadow" style="border: 3px solid var(--bouni-blue);">
+                {% else %}
+                <div class="text-center">
+                    <div class="profile-image-container">
+                        <img src="{% static 'images/talha-profile.jpeg' %}" alt="Talha Colfaoğlu" class="profile-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="profile-placeholder" style="display: none;">
+                            <i class="fas fa-user" style="font-size: 6rem; color: var(--bouni-blue);"></i>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Skills Section - Boğaziçi Style -->
+<section class="section" id="skills" style="background: var(--bouni-white); padding: 120px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title" data-aos="fade-up">Yeteneklerim</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Teknik ve kişisel yeteneklerim
+                </p>
+            </div>
+        </div>
+        
+        {% if skills %}
+        <div class="row">
+            <!-- Sol taraf - İlk 3 skill -->
+            <div class="col-lg-4">
+                {% for skill in skills|slice:":3" %}
+                <div class="academic-card mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1|add:forloop.counter0 }}">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">{{ skill.name }}</h5>
+                        <span style="color: var(--bouni-gold); font-weight: 600;">{{ skill.proficiency }}/10</span>
+                    </div>
+                    <div class="academic-progress">
+                        <div class="academic-progress-bar" data-width="{{ skill.proficiency }}0"></div>
+                    </div>
+                    <small style="color: var(--bouni-gray);">{{ skill.get_category_display }}</small>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Orta - Merkez içerik -->
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="academic-card" style="height: 300px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                        <div>
+                            <i class="fas fa-brain" style="font-size: 4rem; color: var(--bouni-blue); margin-bottom: 1rem;"></i>
+                            <h4 style="color: var(--bouni-blue); font-family: 'Playfair Display', serif; font-weight: 700;">Yetenekler</h4>
+                            <p style="color: var(--bouni-gray);">Teknik ve Kişisel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sağ taraf - Son 3 skill -->
+            <div class="col-lg-4">
+                {% for skill in skills|slice:"3:6" %}
+                <div class="academic-card mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:4|add:forloop.counter0 }}">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">{{ skill.name }}</h5>
+                        <span style="color: var(--bouni-gold); font-weight: 600;">{{ skill.proficiency }}/10</span>
+                    </div>
+                    <div class="academic-progress">
+                        <div class="academic-progress-bar" data-width="{{ skill.proficiency }}0"></div>
+                    </div>
+                    <small style="color: var(--bouni-gray);">{{ skill.get_category_display }}</small>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <!-- Fallback layout -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="academic-card mb-4" data-aos="fade-up">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Python</h5>
+                        <span style="color: var(--bouni-gold); font-weight: 600;">8/10</span>
+                    </div>
+                    <div class="academic-progress">
+                        <div class="academic-progress-bar" data-width="80"></div>
+                    </div>
+                    <small style="color: var(--bouni-gray);">Programming Languages</small>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="academic-card" style="height: 300px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                        <div>
+                            <i class="fas fa-brain" style="font-size: 4rem; color: var(--bouni-blue); margin-bottom: 1rem;"></i>
+                            <h4 style="color: var(--bouni-blue); font-family: 'Playfair Display', serif; font-weight: 700;">Yetenekler</h4>
+                            <p style="color: var(--bouni-gray);">Teknik ve Kişisel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="academic-card mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Django</h5>
+                        <span style="color: var(--bouni-gold); font-weight: 600;">7/10</span>
+                    </div>
+                    <div class="academic-progress">
+                        <div class="academic-progress-bar" data-width="70"></div>
+                    </div>
+                    <small style="color: var(--bouni-gray);">Frameworks & Libraries</small>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Projects Section - Boğaziçi Style -->
+<section class="section" id="projects" style="background: var(--bouni-light-gray); padding: 120px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title" data-aos="fade-up">Projelerim</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Geliştirdiğim bazı projeler
+                </p>
+            </div>
+        </div>
+        
+        {% if projects %}
+        <div class="row">
+            <!-- Sol taraf - İlk proje -->
+            <div class="col-lg-4">
+                {% if projects.0 %}
+                <div class="academic-card h-100" data-aos="fade-up">
+                    {% if projects.0.image %}
+                    <img src="{{ projects.0.image.url }}" class="img-fluid rounded mb-3" alt="{{ projects.0.title }}" style="border: 2px solid var(--bouni-blue);">
+                    {% else %}
+                    <div class="d-flex align-items-center justify-content-center mb-3" style="height: 200px; background: var(--bouni-light-gray); border: 2px solid var(--bouni-blue); border-radius: 10px;">
+                        <i class="fas fa-code" style="font-size: 3rem; color: var(--bouni-blue);"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: var(--bouni-blue); font-weight: 600;">{{ projects.0.title }}</h5>
+                        <p class="card-text" style="color: var(--bouni-gray);">{{ projects.0.description|truncatewords:20 }}</p>
+                        <div class="mb-3">
+                            <small style="color: var(--bouni-gray);">{{ projects.0.technologies }}</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            {% if projects.0.github_url %}
+                            <a href="{{ projects.0.github_url }}" class="btn btn-bouni btn-sm" target="_blank">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Orta - Merkez proje -->
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="academic-card" style="height: 400px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                        <div>
+                            <i class="fas fa-rocket" style="font-size: 4rem; color: var(--bouni-blue); margin-bottom: 1rem;"></i>
+                            <h4 style="color: var(--bouni-blue); font-family: 'Playfair Display', serif; font-weight: 700;">Projeler</h4>
+                            <p style="color: var(--bouni-gray);">Yazılım Geliştirme</p>
+                            <a href="{% url 'portfolio:projects' %}" class="btn btn-bouni mt-3">
+                                Tümünü Gör
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sağ taraf - İkinci proje -->
+            <div class="col-lg-4">
+                {% if projects.1 %}
+                <div class="academic-card h-100" data-aos="fade-up" data-aos-delay="100">
+                    {% if projects.1.image %}
+                    <img src="{{ projects.1.image.url }}" class="img-fluid rounded mb-3" alt="{{ projects.1.title }}" style="border: 2px solid var(--bouni-blue);">
+                    {% else %}
+                    <div class="d-flex align-items-center justify-content-center mb-3" style="height: 200px; background: var(--bouni-light-gray); border: 2px solid var(--bouni-blue); border-radius: 10px;">
+                        <i class="fas fa-mobile-alt" style="font-size: 3rem; color: var(--bouni-blue);"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: var(--bouni-blue); font-weight: 600;">{{ projects.1.title }}</h5>
+                        <p class="card-text" style="color: var(--bouni-gray);">{{ projects.1.description|truncatewords:20 }}</p>
+                        <div class="mb-3">
+                            <small style="color: var(--bouni-gray);">{{ projects.1.technologies }}</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            {% if projects.1.github_url %}
+                            <a href="{{ projects.1.github_url }}" class="btn btn-bouni btn-sm" target="_blank">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% else %}
+        <!-- Fallback layout -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="academic-card h-100" data-aos="fade-up">
+                    <div class="d-flex align-items-center justify-content-center mb-3" style="height: 200px; background: var(--bouni-light-gray); border: 2px solid var(--bouni-blue); border-radius: 10px;">
+                        <i class="fas fa-code" style="font-size: 3rem; color: var(--bouni-blue);"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: var(--bouni-blue); font-weight: 600;">Kişisel Website</h5>
+                        <p class="card-text" style="color: var(--bouni-gray);">Django ile geliştirilmiş modern kişisel website projesi.</p>
+                        <div class="mb-3">
+                            <small style="color: var(--bouni-gray);">Django, Python, HTML, CSS, JavaScript</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-bouni btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="academic-card" style="height: 400px; display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                        <div>
+                            <i class="fas fa-rocket" style="font-size: 4rem; color: var(--bouni-blue); margin-bottom: 1rem;"></i>
+                            <h4 style="color: var(--bouni-blue); font-family: 'Playfair Display', serif; font-weight: 700;">Projeler</h4>
+                            <p style="color: var(--bouni-gray);">Yazılım Geliştirme</p>
+                            <a href="{% url 'portfolio:projects' %}" class="btn btn-bouni mt-3">
+                                Tümünü Gör
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="academic-card h-100" data-aos="fade-up" data-aos-delay="100">
+                    <div class="d-flex align-items-center justify-content-center mb-3" style="height: 200px; background: var(--bouni-light-gray); border: 2px solid var(--bouni-blue); border-radius: 10px;">
+                        <i class="fas fa-mobile-alt" style="font-size: 3rem; color: var(--bouni-blue);"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: var(--bouni-blue); font-weight: 600;">Mobil Uygulama</h5>
+                        <p class="card-text" style="color: var(--bouni-gray);">React Native ile geliştirilmiş mobil uygulama projesi.</p>
+                        <div class="mb-3">
+                            <small style="color: var(--bouni-gray);">React Native, JavaScript, Node.js</small>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-bouni btn-sm">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Contact Section - Boğaziçi Style -->
+<section class="section" id="contact" style="background: var(--bouni-white); padding: 120px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5">
+                <h2 class="section-title" data-aos="fade-up">İletişim</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                    Benimle iletişime geçin
+                </p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <!-- Sol taraf - İletişim bilgileri -->
+            <div class="col-lg-4" data-aos="fade-right">
+                <div class="academic-card">
+                    <h4 class="academic-title mb-4">İletişim Bilgileri</h4>
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-envelope me-3" style="color: var(--bouni-blue); font-size: 1.5rem;"></i>
+                            <div>
+                                <h6 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">E-posta</h6>
+                                <small style="color: var(--bouni-gray);">talha@example.com</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-map-marker-alt me-3" style="color: var(--bouni-gold); font-size: 1.5rem;"></i>
+                            <div>
+                                <h6 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Konum</h6>
+                                <small style="color: var(--bouni-gray);">İstanbul, Türkiye</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-graduation-cap me-3" style="color: var(--bouni-blue); font-size: 1.5rem;"></i>
+                            <div>
+                                <h6 class="mb-0" style="color: var(--bouni-blue); font-weight: 600;">Eğitim</h6>
+                                <small style="color: var(--bouni-gray);">Boğaziçi Üniversitesi</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Orta - Form -->
+            <div class="col-lg-6" data-aos="fade-up">
+                <div class="academic-card">
+                    <form method="post" action="{% url 'portfolio:contact' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_name" class="form-label" style="color: var(--bouni-blue); font-weight: 600;">Ad Soyad</label>
+                                <input type="text" class="academic-input" id="id_name" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_email" class="form-label" style="color: var(--bouni-blue); font-weight: 600;">E-posta</label>
+                                <input type="email" class="academic-input" id="id_email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_subject" class="form-label" style="color: var(--bouni-blue); font-weight: 600;">Konu</label>
+                            <input type="text" class="academic-input" id="id_subject" name="subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_message" class="form-label" style="color: var(--bouni-blue); font-weight: 600;">Mesaj</label>
+                            <textarea class="academic-input" id="id_message" name="message" rows="5" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-bouni">
+                                <i class="fas fa-paper-plane me-2"></i>Mesaj Gönder
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
