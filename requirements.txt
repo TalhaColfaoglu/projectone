@@ -21,4 +21,4 @@ typing_extensions==4.14.1
 tzdata==2024.2
 uritemplate==4.2.0
 gunicorn==22.0.0
-dotenv==0.0.5
+python-dotenv==1.0.1
